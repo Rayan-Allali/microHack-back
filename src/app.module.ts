@@ -7,9 +7,10 @@ import { UserModule } from './user/user.module';
 import { SaleModule } from './sale/sale.module';
 import { AuthFarmerModule } from './auth-farmer/auth-farmer.module';
 import { AuthUserModule } from './auth-user/auth-user.module';
+import { FavorieModule } from './favorie/favorie.module';
 
 @Module({
-  imports: [ProductModule, FarmerModule, UserModule, SaleModule, AuthFarmerModule, AuthUserModule],
+  imports: [ProductModule, FarmerModule, UserModule, SaleModule, AuthFarmerModule, AuthUserModule, FavorieModule],
   controllers: [AppController],
   providers: [AppService],
 })
