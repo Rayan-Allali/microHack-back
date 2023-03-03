@@ -13,7 +13,7 @@ datasource db {
 model Farmer {
   id         String    @id @default(uuid())
   name       String
-  email     String
+  email     String @unique
   password    String
   location   String
   bio        String?
@@ -33,14 +33,13 @@ model Product {
 
 model Sale {
   id         String  @id @default(uuid())
-  date       DateTime
+  date       DateTime @default(now())
   farmer     Farmer  @relation("SaleFarmer", fields: [farmerId], references: [id])
   farmerId   String
   product    Product @relation("SaleProduct", fields: [productId], references: [id])
   productId  String
   quantity   Int
-  soldPrice  Float
-  points Int
+  soldPrice  Int
 }
 
 model User {
