@@ -16,8 +16,10 @@ model Farmer {
   email     String @unique
   password    String
   location   String
+  img String?
   bio        String?
   sales      Sale[]    @relation("SaleFarmer")
+   products   Product[]     @relation("FarmerProduct")
   points Int @default(0)
 }
 
@@ -29,6 +31,7 @@ model Product {
   sales      Sale[]    @relation("SaleProduct")
   favorites  Favorite[]
   points Int @default(0)
+  farmers    Farmer[]     @relation("FarmerProduct")
 }
 
 model Sale {

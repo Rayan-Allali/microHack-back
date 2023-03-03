@@ -36,14 +36,18 @@ export class FarmerService {
         if(!farmer) throw new NotFoundException('farmer not found')
         return farmer
     }
-    async create(body:CreateFarmerDto){
+    async findByEmail(email:string){
+        const user=await this.prisma.farmer.findFirst({where:{email}})
+        return user
+    }
+    async create(name,email,password,bio,location,img){
         const farmer=await this.prisma.farmer.create({data:{
-            name:body.name,
-            email:body.email,
-            password:body.password,
-            bio:body.bio,
-            location:body.location,
-
+            name,
+            email,
+            password,
+            bio,
+            location,
+            img
         }})
         return farmer
     }

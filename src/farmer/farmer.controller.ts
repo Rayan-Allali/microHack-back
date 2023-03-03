@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Delete, Post, Body } from '@nestjs/common';
 import { FarmerService } from './farmer.service';
 
 @Controller('farmer')
@@ -21,4 +21,5 @@ export class FarmerController {
         const farmer=await this.FarmerService.delete(id)
         return null
     }
+    
 }

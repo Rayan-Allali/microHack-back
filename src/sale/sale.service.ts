@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Body } from '@nestjs/common';
+import { Injectable, NotFoundException, Body, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import {UpdateSaleDto} from './dtos/update-sale.dto'
 import { CreateSaleDto } from './dtos/create-sale.dto';
@@ -31,11 +31,11 @@ export class SaleService{
         return sale
     }
 
-    async create(body:CreateSaleDto){
+    async create(body:CreateSaleDto,farmer){
         const sale=await this.prisma.sale.create({
             data:{
                 farmer:{connect:{
-                    id:body.farmerId
+                    id:farmer.id
                 }},
                 product:{connect:{
                     id:body.productId
@@ -47,7 +47,7 @@ export class SaleService{
         return sale
     }
 
-    async update(id:string,body:UpdateSaleDto){
+    async update(id:string,body:UpdateSaleDto,farmer){
         const sale=await this.prisma.sale.findUnique({
             where:{
                 id
@@ -58,6 +58,7 @@ export class SaleService{
             }
         })
         if(!sale) throw new NotFoundException('sale not found')
+        if(farmer.id != sale.farmerId) throw new UnauthorizedException()
         const updateSale = await this.prisma.sale.update({
             where:{
                 id
@@ -70,13 +71,14 @@ export class SaleService{
         return updateSale
     }
 
-    async delete(id:string){
+    async delete(id:string,farmer){
         const sale=await this.prisma.sale.findUnique({
             where:{
                 id
             }
         })
         if(!sale) throw new NotFoundException('sale not found')
+        if(farmer.id != sale.farmerId) throw new UnauthorizedException()
         await this.prisma.sale.delete({
             where:{
                 id
