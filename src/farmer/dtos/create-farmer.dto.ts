@@ -10,4 +10,6 @@ export class CreateFarmerDto{
     location:string;
     @IsString()
     bio:string   
+    @IsString()
+    img:string
 }

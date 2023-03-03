@@ -13,7 +13,10 @@ export class UserService {
         }})
         return users
     }
-
+    async findByEmail(email:string){
+        const user=await this.prisma.user.findFirst({where:{email}})
+        return user
+    }
     async user(id:string){
     const user=await this.prisma.user.findUnique({where:{id},select:{
         name:true,email:true,favorites:true,points:true
@@ -21,11 +24,11 @@ export class UserService {
         if(!user) throw new NotFoundException('no user was found')
     return user
     }
-    async create(body:CreateUserDto){
+    async create(email,password,name){
         const user=await this.prisma.user.create({data:{
-            email:body.email,
-            password:body.password,
-            name:body.name
+            email,
+            password,
+            name
         }})
         return user
     }
