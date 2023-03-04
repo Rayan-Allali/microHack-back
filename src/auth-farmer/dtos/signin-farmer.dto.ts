@@ -13,4 +13,6 @@ export class SigninFarmerDto{
     bio:string
     @IsString()
     img:string
+    @IsString()
+    wilaya:string
 }

@@ -40,14 +40,14 @@ export class FarmerService {
         const user=await this.prisma.farmer.findFirst({where:{email}})
         return user
     }
-    async create(name,email,password,bio,location,img){
+    async create(name,email,password,bio,location,img,wilaya){
         const farmer=await this.prisma.farmer.create({data:{
             name,
             email,
             password,
             bio,
             location,
-            img
+            img,wilaya
         }})
         return farmer
     }

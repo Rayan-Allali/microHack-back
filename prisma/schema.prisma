@@ -16,7 +16,9 @@ model Farmer {
   email     String @unique
   password    String
   location   String
+  wilaya String @default("Alger")
   img String?
+  tel String @default("054687896")
   bio        String?
   sales      Sale[]    @relation("SaleFarmer")
    products   Product[]     @relation("FarmerProduct")
@@ -27,6 +29,7 @@ model Product {
   id         String     @id @default(uuid())
   name       String
   description String
+  img String?
   quality    String
   sales      Sale[]    @relation("SaleProduct")
   favorites  Favorite[]
