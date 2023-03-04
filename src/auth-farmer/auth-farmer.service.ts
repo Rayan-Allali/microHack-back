@@ -36,7 +36,7 @@ export class AuthFarmerService {
 
      const result = salt + '.' + hash.toString('hex')
 
-     const farmer = await this.FarmerService.create(data.name,data.email,result,data.bio,data.location,data.img)
+     const farmer = await this.FarmerService.create(data.name,data.email,result,data.bio,data.location,data.img,data.wilaya)
      const payload={farmerEmail:farmer.email}
      const accessToken:string=await this.jwtService.sign(payload)
      console.log(accessToken)
